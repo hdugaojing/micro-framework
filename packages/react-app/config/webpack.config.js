@@ -230,9 +230,10 @@ module.exports = function (webpackEnv) {
           ((info) =>
             path.resolve(info.absoluteResourcePath).replace(/\\/g, "/")),
       // libraryTarget: "commonjs",
-      library: {
-        type: 'commonjs'
-      }
+      library: "reactMicroApp",
+      libraryTarget: "umd",
+      chunkLoadingGlobal: `webpackJsonp_reactMicroApp`,
+      
     },
     cache: {
       type: "filesystem",
