@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
+  fetchApp,
   getAppLifeCycles,
   registerMicroApps,
 } from "./utils/single-spa.ts";
@@ -24,10 +25,7 @@ registerMicroApps([
     // 详见 https://single-spa.js.org/docs/configuration/#activity-function
 
     // 重点可以分析一下 TypeScript 定义
-    app: () =>
-      import("http://localhost:3000/main.js").then((res) => {
-        return getAppLifeCycles();
-      }),
+    app: () => fetchApp("http://localhost:3000/main.js"),
 
     // activeWhen 参数可以是一个字符串，也可以是一个函数，还可以是一个数组
 
@@ -47,10 +45,7 @@ registerMicroApps([
   {
     name: "vue",
     // app: () => import("vue-micro-app").then(res => getAppLifeCycles(res)),
-    app: () =>
-      import("http://localhost:8080/js/app.js").then((res) => {
-        return getAppLifeCycles();
-      }),
+    app: () => fetchApp("http://localhost:8080/js/app.js"),
     activeWhen: MICRO_APP_ROUTER.VUE,
     customProps: {
       container: MICRO_APP_CONTAINER_ID.VUE,
